@@ -84,7 +84,7 @@ async def on_message_delete(message):
 # Edited Message Logging
 @client.event
 async def on_message_edit(before,after):
-	if before.author == before.user or before.author.id == 853629533855809596 or before.author.id == 159985870458322944 or before.author.id == 432610292342587392:
+	if before.author == client.user or before.author.id == 853629533855809596 or before.author.id == 159985870458322944 or before.author.id == 432610292342587392:
 		return
 	elif before.content == after.content:
 		return
