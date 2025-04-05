@@ -233,8 +233,6 @@ async def manga(interaction: discord.Interaction):
 	await interaction.followup.send(embed=embed)
 
 
-
-
 with open("token.txt") as f:
 	TOKEN = f.readline()
 client.run(TOKEN)
