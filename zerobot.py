@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-import datetime
+from datetime import datetime, timezone
 import aiohttp
 import random
 
@@ -21,7 +21,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 client = Client(command_prefix="0", intents=intents)
 GUILD_ID = discord.Object(id=870386780560568370)
-TIMESTAMP = datetime.datetime.now(datetime.UTC).strftime('%m-%d-%Y @ %H:%M:%S UTC')
+TIMESTAMP = datetime.now(timezone.utc).strftime('%m-%d-%Y @ %H:%M:%S UTC')
 
 # Ping Command
 @client.tree.command(name="ping",description="Latency Test",guild=GUILD_ID)
@@ -64,7 +64,7 @@ async def embedMsg(interaction, text: str):
 # Deleted Message Logging
 @client.event
 async def on_message_delete(message):
-	if message.author == client.user:
+	if message.author == client.user or message.author.id == 853629533855809596 or message.author.id == 159985870458322944 or message.author.id == 432610292342587392:
 		return
 	if message.attachments:
 		attachments = "".join([attachment.url for attachment in message.attachments])
@@ -84,12 +84,12 @@ async def on_message_delete(message):
 # Edited Message Logging
 @client.event
 async def on_message_edit(before,after):
-	if before.author == client.user:
+	if before.author == before.user or before.author.id == 853629533855809596 or before.author.id == 159985870458322944 or before.author.id == 432610292342587392:
 		return
 	elif before.content == after.content:
 		return
 	
-	await client.get_channel(1204132381561458728).send(embed=discord.Embed(
+	await client.get_channel(1357870960027631747).send(embed=discord.Embed(
 			title=f"Edited Message by {before.author} in {before.channel.mention}",
 			description=f"**Before: **\"{before.content}\"\n**After: **\"{after.content}\"",
 			color=0xffff00)
@@ -111,6 +111,7 @@ async def anime(
 	aired_from: int = None,
 	aired_to: int = None
 ):
+	print(f"COMMAND: \"anime\" FROM: {interaction.user} PARAM: \"min_score: {min_score}, max_score: {max_score}, aired_from: {aired_from}, aired_to: {aired_to}\"")
 	await interaction.response.defer()
 
 	# If no filters are provided, use the true random anime endpoint
