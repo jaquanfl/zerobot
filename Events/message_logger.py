@@ -11,9 +11,8 @@ class MessageLogger(commands.Cog):
     # Deleted Message Logging
     @commands.Cog.listener()
     async def on_message_delete(self, message):
-        if message.author.id == 853629533855809596 or message.author.id == 159985870458322944 or message.author.id == 432610292342587392:
-            return
-        elif message.guild.id == 330867026803556354:
+        
+        if message.guild.id == 330867026803556354:
             return
         if message.author == self.client.user:
             embeds = message.embeds
@@ -25,6 +24,8 @@ class MessageLogger(commands.Cog):
                     description=f"\"{message.content}\"",
                     color=0xff0000)
                     .set_footer(text=self.timestamp))
+        elif message.author.bot:
+            return
         elif message.attachments:
             attachments = "".join([attachment.url for attachment in message.attachments])
             await self.client.get_channel(1357870960027631747).send(embed=discord.Embed(
@@ -43,7 +44,7 @@ class MessageLogger(commands.Cog):
     # Edited Message Logging
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
-        if before.author == self.client.user or before.author.id == 853629533855809596 or before.author.id == 159985870458322944 or before.author.id == 432610292342587392:
+        if before.author.bot:
             return
         elif before.content == after.content:
             return
@@ -52,8 +53,8 @@ class MessageLogger(commands.Cog):
         
         await self.client.get_channel(1357870960027631747).send(embed=discord.Embed(
                 title=f"Edited Message by {before.author} in {before.channel.mention}",
-                description=f"\"{before.content}\" \n\n ➡️ \"{after.content}\"",
-                color=0xff0000)
+			    description=f"**Before: **\"{before.content}\"\n**After: **\"{after.content}\"",
+                color=0xffff00)
                 .set_footer(text=self.timestamp))
         
 async def setup(client):

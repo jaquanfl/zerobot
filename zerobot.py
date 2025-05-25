@@ -19,7 +19,7 @@ async def on_ready():
 		guild = discord.Object(id=870386780560568370)
 		synced = await client.tree.sync(guild=guild)
 		print(f'Synced {len(synced)} commands to guild {guild.id}')
-		await channel.send("https://tenor.com/view/vivy-vivy_ep10-gif-21749884")
+		# await channel.send("https://tenor.com/view/vivy-vivy_ep10-gif-21749884")
 
 
 	except Exception as e:
@@ -28,11 +28,11 @@ async def on_ready():
 
 
 async def load_cogs():
-	cog_paths = ["Commands", "Events", "Utils"]
+	cog_paths = ["Commands", "Events"]
 
 	for folder in cog_paths:
 		for filename in os.listdir(folder):
-			if filename.endswith(".py") and filename != "__init__.py":
+			if filename.endswith(".py") and filename != "__init__.py" and filename != "jikan_api.py":
 				cog_name = filename[:-3]
 				try:
 					await client.load_extension(f"{folder}.{cog_name}")

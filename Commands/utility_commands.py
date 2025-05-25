@@ -5,6 +5,16 @@ from discord.ext import commands
 class UtilityCommands(commands.Cog):
 	def __init__(self, client):
 		self.client = client
+	# Help Command
+	# async def helpCommand(self, interaction: discord.Interaction):
+	# 	embed = discord.Embed(
+	# 		title="Command Menu",
+	# 		description="List of available commands",
+	# 		color=discord.Color.blue()
+	# 	)
+	# 	for command in self.client.tree.get_commands():
+	# 		embed.add_field(name=f"/{command.name}", value=command.description, inline=False)	
+	# 	await interaction.response.send_message(embed=embed)
 
 	# Ping Command
 	async def getPing(self, interaction: discord.Interaction):
@@ -53,6 +63,11 @@ async def setup(client):
 	cog = UtilityCommands(client)
 	await client.add_cog(cog)
 	
+	# @app_commands.command(name="help", description="List of available commands")
+	# async def help_command(interaction):
+	# 	await cog.helpCommand(interaction)
+	# client.tree.add_command(help_command, guild=discord.Object(id=870386780560568370))
+
 	@app_commands.command(name="ping", description="Latency Test")
 	async def ping_command(interaction):
 		await cog.getPing(interaction)
